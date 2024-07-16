@@ -3,21 +3,20 @@ import cors from 'cors';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import pkg from 'body-parser';
-import sequelize from './config/database.js'; // Impor instance sequelize
-import jwt from 'jsonwebtoken';
+import sequelize from './config/database.js'; 
 import authRoutes from './routes/authen.js';
 import vendorRoutes from './routes/vendors.js';
 import adminRoutes from './routes/admin.js';
 import orderRoutes from './routes/order.js';
 import dashboardRoutes from './routes/dashboard.js';
 import usermanagementRoutes from './routes/usermanagement.js';
-import projectmanagerRoutes from './routes/projectmanager.js';
+import projectmanagerRoutes from './routes/projectManager.js';
 import './models/associations.js';
 
 const { json: bodyParserJson } = pkg;
 const JWT_SECRET = 'your_secret_key_here';
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 8080;
 
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
 
@@ -38,6 +37,7 @@ app.use(expressJson());
 app.use(cookieParser());
 app.use(bodyParserJson());
 
+// Prevent caching
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Pragma', 'no-cache');
@@ -65,10 +65,6 @@ app.use('/user', usermanagementRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/projectmanager', projectmanagerRoutes);
 
-
-
-
-
 app.get('/', (req, res) => {
   const token = req.headers['authorization'];
   if (!token) {
@@ -93,7 +89,7 @@ app.get('/logout', (req, res) => {
 sequelize.sync({ force: false }).then(() => {
   console.log('Database synced');
   // Jalankan server
-  app.listen(port, '0.0.0.1', () => {
-    console.log(`Server berjalan di http://localhost:${port}`);
+  app.listen(port, () => {
+    console.log(`Server berjalan di : ${port}`);
   });
 });
