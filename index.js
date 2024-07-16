@@ -10,7 +10,7 @@ import adminRoutes from './routes/admin.js';
 import orderRoutes from './routes/order.js';
 import dashboardRoutes from './routes/dashboard.js';
 import usermanagementRoutes from './routes/usermanagement.js';
-import projectmanagerRoutes from './routes/projectManager.js';
+import projectmanagerRoutes from './routes/projectmanager.js';
 import './models/associations.js';
 
 const { json: bodyParserJson } = pkg;
@@ -18,7 +18,7 @@ const JWT_SECRET = 'your_secret_key_here';
 const app = express();
 const port = 8080;
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
+const allowedOrigins = ['https://admin.hyperial.my.id', 'https://user.hyperial.my.id'];
 
 const corsOptions = {
   origin: (origin, callback) => {
