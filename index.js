@@ -93,7 +93,7 @@ app.get('/logout', (req, res) => {
 sequelize.sync({ force: false }).then(() => {
   console.log('Database synced');
   // Jalankan server
-  app.listen(port, () => {
+  app.listen(port, '0.0.0.1', () => {
     console.log(`Server berjalan di http://localhost:${port}`);
   });
 });
